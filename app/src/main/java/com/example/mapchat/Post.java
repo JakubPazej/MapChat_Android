@@ -17,6 +17,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.errorprone.annotations.Var;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -33,6 +36,9 @@ import java.util.Map;
 
 public class Post extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    String user = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+
     public static final String Message = "ie.ul.myfirstapp.EXTRA_MESSAGE";
 
 
@@ -61,15 +67,6 @@ public class Post extends AppCompatActivity {
             name+=(9- (Character.getNumericValue(ts.charAt(i))));
 
         }
-        // Date date=new Date(ts.getTime());
-        //DateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-        //String Time = df.format(ts);//I know this can be broken by changing device time but servertimestamp doesnt work and I don't really have a different solution rn
-        // System.out.println(timestamp);
-
-
-
-
-
 
 
         Posts1.put(name,PostMessage);
@@ -80,12 +77,37 @@ public class Post extends AppCompatActivity {
 
         startActivity(intent);
 
+    }
+    public String clean(String ref) {
+        String newRef;
+        newRef = ref.substring(50);
+        return newRef;
+
+    }
+
+    public void postData(View view) {
+        String ts=Long.toString(System.currentTimeMillis());
+        String tst = "";
+        for(int i =0; i<13;i++) {
+            tst+=(9- (Character.getNumericValue(ts.charAt(i))));
+
+        }
+        DatabaseReference myRef = database.getReference(tst+""+user);
+        EditText editText = (EditText) findViewById(R.id.Message);
+        String postMessage = editText.getText().toString();
+
+        String refString = myRef.toString();
+        myRef.setValue(postMessage);
+        String newRef =clean(refString);
+        System.out.println(user);
+        System.out.println(refString);
+        System.out.println(newRef);
 
 
-        /*EditText editText = (EditText) findViewById(R.id.Message);
-        String message = editText.getText().toString();
         Intent intent = new Intent(this,Reading.class);
-        intent.putExtra(Message,message);
-        startActivity(intent); */
+
+        startActivity(intent);
+
+
     }
 }

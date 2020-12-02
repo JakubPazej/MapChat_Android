@@ -1,44 +1,47 @@
 package com.example.mapchat;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
-import android.renderscript.Sampler;
-import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-
-import com.example.mapchat.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
-//import com.google.firebase.firestore.instance;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-//import com.google.firebase.firestore.getId;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.core.OrderBy;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import javax.xml.validation.Validator;
+//import com.google.firebase.firestore.instance;
+//import com.google.firebase.firestore.getId;
 
 
 public class Reading extends AppCompatActivity {
 
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    String user = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+    String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
     public static String Message = "ie.ul.myfirstapp.EXTRA_MESSAGE";
     public static ArrayList<String> values = new ArrayList<String>();
+    DatabaseReference database;// = FirebaseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
 
         update();
 
@@ -54,6 +57,19 @@ public class Reading extends AppCompatActivity {
         startActivity(intent);
         //finish();
     }
+
+    public void onClickProfile(View view) {
+        Intent intent = new Intent(this,Profile.class);
+
+        startActivity(intent);
+    }
+
+    public void onClickMap(View view) {
+        Intent intent = new Intent(this,Maps.class);
+
+        startActivity(intent);
+    }
+
 
     public void update() {
         db = FirebaseFirestore.getInstance();
@@ -77,6 +93,12 @@ public class Reading extends AppCompatActivity {
                                 values.add(Message);
                             }
                             System.out.println(values);
+
+                            TextView welcome =findViewById(R.id.welcome);
+                            welcome.setText("Welcome "+user+"!");
+
+                            TextView profileClick =findViewById(R.id.profileClick);
+                            profileClick.setText(user);
 
                             TextView textView = findViewById(R.id.textView2);
                             textView.setText(values.get(0));
@@ -103,6 +125,10 @@ public class Reading extends AppCompatActivity {
 
     }
 
+    public void updateData(){
+
+    }
+
     public void cleanUp(){
         String redo = "";
         char b = '=';
@@ -122,6 +148,22 @@ public class Reading extends AppCompatActivity {
             }
         }
         Message = redo;
+    }
+
+    public void postData(View view){
+        System.out.println("postData");
+        writeNewUser(userId,user,userEmail);
+    }
+    private void writeNewUser(String userId, String name, String email) {
+        System.out.println(userId);
+        System.out.println(name);
+        System.out.println(email);
+
+        User user = new User(name, email);
+        System.out.println("Made User");
+
+        database.child("users").child(userId).setValue(user);
+        System.out.println("Added User");
     }
 
 

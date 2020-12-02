@@ -37,7 +37,20 @@
         android:onClick="post"
         android:text="POST"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.309"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Message" />
+
+    <Button
+        android:id="@+id/postData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="postData"
+        android:text="Post"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintStart_toEndOf="@+id/POST"
+        app:layout_constraintTop_toBottomOf="@+id/Message"
+        app:layout_constraintVertical_bias="0.369" />
 </androidx.constraintlayout.widget.ConstraintLayout>
