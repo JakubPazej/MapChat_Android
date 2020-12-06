@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.android.gms.auth.api.Auth;
 import com.google.firebase.auth.FirebaseAuth;
 import com.firebase.ui.auth.*;
 
@@ -27,20 +28,29 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mAuth = FirebaseAuth.getInstance();
-
-
+        //getActionBar().hide();
         setContentView(R.layout.activity_main);
-    }
-    public void onClickSignIn(View view){
+
+
+        }
+
+
+
+    public void signIn(View view) {
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build()
         );
 
+
         startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
+                        .setLogo(R.mipmap.ic_launcher)
                         .setAvailableProviders(providers)
+                        .setIsSmartLockEnabled(true)
+
                         .build(),RC_SIGN_IN);
 
     }
