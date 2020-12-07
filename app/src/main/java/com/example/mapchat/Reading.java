@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,19 +32,24 @@ import java.util.Map;
 public class Reading extends AppCompatActivity {
 
 
+    public static String userName,authorName;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseDatabase dataBase;
     DatabaseReference myRef;
 
     String user = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+
     String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
     String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
     String temp1,temp2,temp3,temp4;
+
     private static final String TAG = "";
 
 
     public static String Message = "ie.ul.myfirstapp.EXTRA_MESSAGE";
-    public static ArrayList<String> values = new ArrayList<String>();
+    public static ArrayList<String> messages = new ArrayList<String>();
+    public static ArrayList<String> listOfData = new ArrayList<String>();
+    public static ArrayList<String> authors = new ArrayList<String>();
     DatabaseReference database;// = FirebaseDatabase.getInstance();
 
     @Override
@@ -59,7 +65,9 @@ public class Reading extends AppCompatActivity {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                values.clear();
+                messages.clear();
+                listOfData.clear();
+                authors.clear();
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 //Map<String, String> dataset = new HashMap<String, String>();
@@ -68,7 +76,7 @@ public class Reading extends AppCompatActivity {
                     int j =0;
                     for (String i : map.values()) {
                          Log.d(TAG, "Value is: " + i);
-                         getInfo(i);
+                         getInfo(i,true);
                          j++;
                          if(j==5){
                              break;
@@ -80,7 +88,7 @@ public class Reading extends AppCompatActivity {
                     for (String i : map.values()) {
                         //while(j<map.size()) {
                          Log.d(TAG, "Value is: " + i);
-                         getInfo(i);
+                         getInfo(i,true);
                          j++;
                          if(j==map.size()){
                              break;
@@ -105,7 +113,7 @@ public class Reading extends AppCompatActivity {
 
     }
 
-    public void getInfo(String fromData){
+    public void getInfo(String fromData,Boolean addtodata){
         int[] amount =new int[3];
         //System.out.println("Tyestung");
         int j=0;
@@ -127,8 +135,14 @@ public class Reading extends AppCompatActivity {
         temp2=fromData.substring(amount[0]+1,amount[1]);
         temp3=fromData.substring(amount[1]+1,amount[2]);
         temp4=fromData.substring(amount[2]+1);
-        values.add(temp4);
-        Log.d(TAG, "Values is: " + values);
+        //listOfData.add(fromData);
+
+        if(addtodata==true){
+            listOfData.add(fromData);
+            messages.add(temp4);
+            authors.add(temp3);
+        }
+       // Log.d(TAG, "Values is: " + values);
 
         //updateData();
 
@@ -150,7 +164,7 @@ public class Reading extends AppCompatActivity {
 
     public void onClickProfile(View view) {
         Intent intent = new Intent(this,Profile.class);
-
+        intent.putExtra(userName,user);
         startActivity(intent);
     }
 
@@ -163,7 +177,7 @@ public class Reading extends AppCompatActivity {
 
     public void update() {
         db = FirebaseFirestore.getInstance();
-        values.clear();
+        messages.clear();
         db.collection("Posts")
                 //.orderBy("Posts", Query.Direction.DESCENDING)
 
@@ -180,9 +194,9 @@ public class Reading extends AppCompatActivity {
                                 System.out.println("2");
                                 Message = value.getData().toString();
                                 cleanUp();
-                                values.add(Message);
+                                messages.add(Message);
                             }
-                            System.out.println(values);
+                            System.out.println(messages);
 
                             TextView welcome =findViewById(R.id.welcome);
                             welcome.setText("Welcome "+user+"!");
@@ -191,19 +205,19 @@ public class Reading extends AppCompatActivity {
                             profileClick.setText(user);
 
                             TextView textView = findViewById(R.id.textView2);
-                            textView.setText(values.get(0));
+                            textView.setText(messages.get(0));
 
                             TextView textView1 = findViewById(R.id.textView3);
-                            textView1.setText(values.get(1));
+                            textView1.setText(messages.get(1));
 
                             TextView textView2 = findViewById(R.id.textView4);
-                            textView2.setText(values.get(2));
+                            textView2.setText(messages.get(2));
 
                             TextView textView3 = findViewById(R.id.textView5);
-                            textView3.setText(values.get(3));
+                            textView3.setText(messages.get(3));
 
                             TextView textView4 = findViewById(R.id.textView6);
-                            textView4.setText(values.get(4));
+                            textView4.setText(messages.get(4));
                         }
                         else{
                             Log.w("tag", "Error getting Posts.",task.getException()) ;
@@ -221,27 +235,90 @@ public class Reading extends AppCompatActivity {
         profileClick.setText(user);
         TextView welcome =findViewById(R.id.welcome);
         welcome.setText("Welcome "+user+"!");
-        if(values.size()>0) {
+
+        if(messages.size()>0) {
             TextView textView = findViewById(R.id.textView2);
-            textView.setText(values.get(0));
+            textView.setText(messages.get(0));
+            Button button1 = findViewById(R.id.button2);
+            button1.setText(authors.get(0));
+
         }
-        if(values.size()>1) {
+        if(messages.size()>1) {
             TextView textView1 = findViewById(R.id.textView3);
-            textView1.setText(values.get(1));
+            textView1.setText(messages.get(1));
+            Button button2 = findViewById(R.id.button4);
+            button2.setText(authors.get(1));
         }
-        if(values.size()>2) {
+        if(messages.size()>2) {
             TextView textView2 = findViewById(R.id.textView4);
-            textView2.setText(values.get(2));
+            textView2.setText(messages.get(2));
+            Button button3 = findViewById(R.id.button5);
+            button3.setText(authors.get(2));
         }
-        if(values.size()>3) {
+        if(messages.size()>3) {
             TextView textView3 = findViewById(R.id.textView5);
-            textView3.setText(values.get(3));
+            textView3.setText(messages.get(3));
+            Button button4 = findViewById(R.id.button6);
+            button4.setText(authors.get(3));
         }
-        if(values.size()>4) {
+        if(messages.size()>4) {
             TextView textView4 = findViewById(R.id.textView6);
-            textView4.setText(values.get(4));
+            textView4.setText(messages.get(4));
+            Button button5 = findViewById(R.id.button7);
+            button5.setText(authors.get(4));
         }
 
+    }
+
+    public void onClickAuthor1(View view){
+        Intent intent = new Intent(this,Profile.class);
+        Button button = findViewById(R.id.button2);
+        authorName = button.getText().toString();
+
+        intent.putExtra(userName,authorName);
+
+
+        startActivity(intent);
+    }
+    public void onClickAuthor2(View view){
+        Intent intent = new Intent(this,Profile.class);
+        Button button = findViewById(R.id.button4);
+        authorName = button.getText().toString();
+
+        intent.putExtra(userName,authorName);
+
+
+        startActivity(intent);
+    }
+    public void onClickAuthor3(View view){
+        Intent intent = new Intent(this,Profile.class);
+        Button button = findViewById(R.id.button5);
+        authorName = button.getText().toString();
+
+        intent.putExtra(userName,authorName);
+
+
+        startActivity(intent);
+    }
+    public void onClickAuthor4(View view){
+        Intent intent = new Intent(this,Profile.class);
+        Button button = findViewById(R.id.button6);
+        authorName = button.getText().toString();
+
+        intent.putExtra(userName,authorName);
+
+
+        startActivity(intent);
+    }
+    public void onClickAuthor5(View view){
+        Intent intent = new Intent(this,Profile.class);
+        Button button = findViewById(R.id.button7);
+        authorName = button.getText().toString();
+
+        intent.putExtra(userName,authorName);
+
+
+        startActivity(intent);
     }
 
     public void cleanUp(){

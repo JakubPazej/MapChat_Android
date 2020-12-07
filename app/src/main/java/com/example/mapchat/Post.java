@@ -160,6 +160,7 @@ public class Post extends AppCompatActivity {
         //System.out.println(longitude);
        // FirebaseDatabase.getInstance().getReference().child("Users").child(user).child(tst).setValue(postMessage);
         FirebaseDatabase.getInstance().getReference().child("Location").child(tst).setValue(lat+"!"+lon+"!"+user+"!"+postMessage);
+        FirebaseDatabase.getInstance().getReference().child("Users").child(user).child(tst).setValue(postMessage);
 
 
         Intent intent = new Intent(this,Reading.class);

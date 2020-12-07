@@ -2,6 +2,7 @@ package com.example.mapchat;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +22,11 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
@@ -38,23 +45,91 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.UUID;
 import com.squareup.picasso.Picasso;
 
 public class Profile extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    String user = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+    String user ;//= FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
     FirebaseStorage storage = FirebaseStorage.getInstance();;
     private StorageReference mStorageRef;
     private Uri filePath;
     private final int PICK_IMAGE_REQUEST = 71;
     private Intent Privdata;
+    ArrayList<String> userMessages = new ArrayList<>();
+    FirebaseDatabase dataBase;
+    DatabaseReference myRef;
+    private static final String TAG = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mStorageRef = storage.getReferenceFromUrl("gs://mapchat-d7f34.appspot.com");
+        user = getIntent().getStringExtra(Reading.userName);
+        dataBase = FirebaseDatabase.getInstance();
+        myRef = dataBase.getReference().child("Users").child(user);
+
+        myRef.addValueEventListener(new ValueEventListener() {
+
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //if (dataSnapshot != null) {
+                    userMessages.clear();
+                    // This method is called once with the initial value and again
+                    // whenever data at this location is updated.
+                    //Map<String, String> dataset = new HashMap<String, String>();
+
+                    Map<String, String> map = (Map<String, String>) dataSnapshot.getValue();
+                    if (map.size() > 5) {
+                        int j = 0;
+                        for (String i : map.values()) {
+                            Log.d(TAG, "Value is: " + i);
+                            userMessages.add(i);
+                            //getInfo(i,true);
+                            j++;
+                            if (j == 5) {
+                                break;
+                            }
+                        }
+                    } else {
+                        int j = 0;
+                        for (String i : map.values()) {
+                            //while(j<map.size()) {
+                            Log.d(TAG, "Value is: " + i);
+                            userMessages.add(i);
+                            j++;
+                            if (j == map.size()) {
+                                break;
+                            }
+                        }
+                    }
+                    updateData();
+
+                }
+
+                @Override
+                public void onCancelled (DatabaseError error){
+                    // Failed to read value
+                    Log.w(TAG, "Failed to read value.", error.toException());
+                }
+            
+        });
+
+
+
+
+
+
+
+
+
+
+
+
 
         setContentView(R.layout.activity_profile);
 
@@ -83,6 +158,37 @@ public class Profile extends AppCompatActivity {
         TextView profileName =findViewById(R.id.topText);
         profileName.setText(user);
 
+
+
+    }
+
+    public void updateData(){
+        if(userMessages.size()>0) {
+            TextView textView = findViewById(R.id.Message1);
+            textView.setText(userMessages.get(0));
+
+
+        }
+        if(userMessages.size()>1) {
+            TextView textView1 = findViewById(R.id.Message2);
+            textView1.setText(userMessages.get(1));
+
+        }
+        if(userMessages.size()>2) {
+            TextView textView2 = findViewById(R.id.Message3);
+            textView2.setText(userMessages.get(2));
+
+        }
+        if(userMessages.size()>3) {
+            TextView textView3 = findViewById(R.id.Message4);
+            textView3.setText(userMessages.get(3));
+
+        }
+        if(userMessages.size()>4) {
+            TextView textView4 = findViewById(R.id.Message5);
+            textView4.setText(userMessages.get(4));
+
+        }
     }
 
     public void uploadProfo(View view) {            //To set profile Image
