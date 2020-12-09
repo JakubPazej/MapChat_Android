@@ -1,11 +1,5 @@
 package com.example.mapchat;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,51 +11,34 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.Registry;
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.module.AppGlideModule;
-
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.UUID;
-import com.squareup.picasso.Picasso;
 
-public class Profile extends AppCompatActivity {
+public class otherProfile extends AppCompatActivity {
 
-    public static String user;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-<<<<<<< Updated upstream
-    String user ;//= FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-=======
-    //String user ;
+    String user ;
     String userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
->>>>>>> Stashed changes
     FirebaseStorage storage = FirebaseStorage.getInstance();;
     private StorageReference mStorageRef;
     private Uri filePath;
@@ -78,12 +55,9 @@ public class Profile extends AppCompatActivity {
         mStorageRef = storage.getReferenceFromUrl("gs://mapchat-d7f34.appspot.com");
         user = getIntent().getStringExtra(Reading.userName);
         dataBase = FirebaseDatabase.getInstance();
-<<<<<<< Updated upstream
-=======
         Button button = findViewById(R.id.button3);
 
 
->>>>>>> Stashed changes
 
 
         try {
@@ -108,7 +82,7 @@ public class Profile extends AppCompatActivity {
 
 
 
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_otherprofile);
 
         final ImageView profo = findViewById(R.id.profo);   //Setting Profile Picture if it exists
 
@@ -317,3 +291,7 @@ public class Profile extends AppCompatActivity {
     }
 
 }
+
+
+
+

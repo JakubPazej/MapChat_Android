@@ -79,6 +79,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+<<<<<<< Updated upstream
+=======
+        final ImageView background = findViewById(R.id.background);
+
+        final Bitmap[] bitmap1 = new Bitmap[1];
+
+        StorageReference islandRef1 = mStorageRef.child("images/background.png");
+
+        final long ONE_MEGABYTE1 = 5000 * 5000;
+        islandRef1.getBytes(ONE_MEGABYTE1).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                // Data for "images/island.jpg" is returns, use this as needed
+                System.out.println("Success Byte");
+                bitmap1[0] = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                background.setImageBitmap(bitmap1[0]);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+                System.out.println("Failure Byte");
+            }
+        });
+>>>>>>> Stashed changes
 
         }
 

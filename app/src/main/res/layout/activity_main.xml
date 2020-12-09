@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
     <ImageView
+<<<<<<< Updated upstream
         android:id="@+id/imageView6"
         android:layout_width="723dp"
         android:layout_height="412dp"
@@ -27,6 +28,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/arrow_down_float" />
+=======
+        android:id="@+id/background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+>>>>>>> Stashed changes
 
     <Button
         android:id="@+id/signIn"

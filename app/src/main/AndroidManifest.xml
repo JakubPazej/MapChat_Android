@@ -36,6 +36,7 @@
             android:name=".Maps"
             android:label="@string/title_activity_maps"></activity>
         <activity android:name=".Profile" />
+        <activity android:name=".otherProfile" />
         <activity android:name=".Post" />
         <activity android:name=".Reading" />
         <activity android:name=".MainActivity">

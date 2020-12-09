@@ -275,19 +275,32 @@ public class Reading extends AppCompatActivity {
         } */
 
     }
+<<<<<<< Updated upstream
 
     public void onClickAuthor1(View view){
         Intent intent = new Intent(this,Profile.class);
         Button button = findViewById(R.id.button2);
         authorName = authors.get(0);
 
+=======
+
+    public void onClickAuthor1(View view){
+        Intent intent = new Intent(this,otherProfile.class);
+        Button button = findViewById(R.id.button2);
+        authorName = authors.get(0);
+
+>>>>>>> Stashed changes
         intent.putExtra(userName,authorName);
 
 
         startActivity(intent);
     }
     public void onClickAuthor2(View view){
+<<<<<<< Updated upstream
         Intent intent = new Intent(this,Profile.class);
+=======
+        Intent intent = new Intent(this,otherProfile.class);
+>>>>>>> Stashed changes
         Button button = findViewById(R.id.button4);
         authorName = authors.get(1);
 
@@ -295,6 +308,7 @@ public class Reading extends AppCompatActivity {
 
 
         startActivity(intent);
+<<<<<<< Updated upstream
     }
     public void onClickAuthor3(View view){
         Intent intent = new Intent(this,Profile.class);
@@ -367,7 +381,30 @@ public class Reading extends AppCompatActivity {
 
 
         startActivity(intent);
+=======
+>>>>>>> Stashed changes
     }
+    public void onClickAuthor3(View view){
+        Intent intent = new Intent(this,otherProfile.class);
+        Button button = findViewById(R.id.button5);
+        authorName = authors.get(2);
+
+        intent.putExtra(userName,authorName);
+
+
+        startActivity(intent);
+    }
+    public void onClickAuthor4(View view){
+        Intent intent = new Intent(this,otherProfile.class);
+        Button button = findViewById(R.id.button6);
+        authorName = authors.get(3);
+
+        intent.putExtra(userName,authorName);
+
+
+        startActivity(intent);
+    }
+
 
     public void cleanUp(){
         String redo = "";
