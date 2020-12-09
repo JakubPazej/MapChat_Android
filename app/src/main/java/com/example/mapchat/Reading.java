@@ -318,6 +318,57 @@ public class Reading extends AppCompatActivity {
     }
 
 
+    public void onClickAuthor1(View view){
+        Intent intent = new Intent(this,Profile.class);
+        Button button = findViewById(R.id.button2);
+        authorName = button.getText().toString();
+
+        intent.putExtra(userName,authorName);
+
+
+        startActivity(intent);
+    }
+    public void onClickAuthor2(View view){
+        Intent intent = new Intent(this,Profile.class);
+        Button button = findViewById(R.id.button4);
+        authorName = button.getText().toString();
+
+        intent.putExtra(userName,authorName);
+
+
+        startActivity(intent);
+    }
+    public void onClickAuthor3(View view){
+        Intent intent = new Intent(this,Profile.class);
+        Button button = findViewById(R.id.button5);
+        authorName = button.getText().toString();
+
+        intent.putExtra(userName,authorName);
+
+
+        startActivity(intent);
+    }
+    public void onClickAuthor4(View view){
+        Intent intent = new Intent(this,Profile.class);
+        Button button = findViewById(R.id.button6);
+        authorName = button.getText().toString();
+
+        intent.putExtra(userName,authorName);
+
+
+        startActivity(intent);
+    }
+    public void onClickAuthor5(View view){
+        Intent intent = new Intent(this,Profile.class);
+        Button button = findViewById(R.id.button7);
+        authorName = button.getText().toString();
+
+        intent.putExtra(userName,authorName);
+
+
+        startActivity(intent);
+    }
+
     public void cleanUp(){
         String redo = "";
         char b = '=';
