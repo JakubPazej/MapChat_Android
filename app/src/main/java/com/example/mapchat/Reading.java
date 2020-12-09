@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,13 +17,18 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 //import com.google.firebase.firestore.instance;
 //import com.google.firebase.firestore.getId;
@@ -31,19 +37,24 @@ import java.util.Map;
 public class Reading extends AppCompatActivity {
 
 
+    public static String userName,authorName;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseDatabase dataBase;
-    DatabaseReference myRef;
+    Query myRef;
 
     String user = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+
     String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
     String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
     String temp1,temp2,temp3,temp4;
+
     private static final String TAG = "";
 
 
     public static String Message = "ie.ul.myfirstapp.EXTRA_MESSAGE";
-    public static ArrayList<String> values = new ArrayList<String>();
+    public static ArrayList<String> messages = new ArrayList<String>();
+    public static ArrayList<String> listOfData = new ArrayList<String>();
+    public static ArrayList<String> authors = new ArrayList<String>();
     DatabaseReference database;// = FirebaseDatabase.getInstance();
 
     @Override
@@ -51,7 +62,8 @@ public class Reading extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         dataBase = FirebaseDatabase.getInstance();
-        myRef =dataBase.getReference().child("Location");
+        myRef = dataBase.getReference().child("Location").orderByKey();
+
 
 
         myRef.addValueEventListener(new ValueEventListener() {
@@ -59,30 +71,39 @@ public class Reading extends AppCompatActivity {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                values.clear();
+                messages.clear();
+                listOfData.clear();
+                authors.clear();
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 //Map<String, String> dataset = new HashMap<String, String>();
-                Map<String, String> map = (Map<String, String>) dataSnapshot.getValue();
-                if(map.size()>5){
+                Map<Integer, String> map = (Map<Integer, String>) dataSnapshot.getValue();
+                //Collections.sort((List<Comparable>) map);
+                TreeMap<Integer, String> sorted = new TreeMap<>();
+                sorted.putAll(map);
+
+
+                // new TreeMap<String, String>(map);
+                if(sorted.size()>5){
+                    System.out.println("HERE I AM" +sorted);
                     int j =0;
-                    for (String i : map.values()) {
+                    for (String i : sorted.values()) {
                          Log.d(TAG, "Value is: " + i);
-                         getInfo(i);
+                         getInfo(i,true);
                          j++;
-                         if(j==5){
-                             break;
-                        }
+                         //if(j==5){
+                         //    break;
+                        //}
                     }
                 }
                 else{
                     int j =0;
-                    for (String i : map.values()) {
+                    for (String i : sorted.values()) {
                         //while(j<map.size()) {
                          Log.d(TAG, "Value is: " + i);
-                         getInfo(i);
+                         getInfo(i,true);
                          j++;
-                         if(j==map.size()){
+                         if(j==sorted.size()){
                              break;
                          }
                     }
@@ -104,8 +125,8 @@ public class Reading extends AppCompatActivity {
         setContentView(R.layout.activity_reading);
 
     }
-
-    public void getInfo(String fromData){
+   //  52!56!Eoin McDonough!Message
+    public void getInfo(String fromData,Boolean addtodata){
         int[] amount =new int[3];
         //System.out.println("Tyestung");
         int j=0;
@@ -127,14 +148,13 @@ public class Reading extends AppCompatActivity {
         temp2=fromData.substring(amount[0]+1,amount[1]);
         temp3=fromData.substring(amount[1]+1,amount[2]);
         temp4=fromData.substring(amount[2]+1);
-        values.add(temp4);
-        Log.d(TAG, "Values is: " + values);
+        //listOfData.add(fromData);
 
-        //updateData();
-
-
-        //System.out.println(temp1);
-        //System.out.println(temp2);
+        if(addtodata==true){
+            listOfData.add(fromData);
+            messages.add(temp4);
+            authors.add(temp3);
+        }
 
 
     }
@@ -150,7 +170,7 @@ public class Reading extends AppCompatActivity {
 
     public void onClickProfile(View view) {
         Intent intent = new Intent(this,Profile.class);
-
+        intent.putExtra(userName,user);
         startActivity(intent);
     }
 
@@ -163,7 +183,7 @@ public class Reading extends AppCompatActivity {
 
     public void update() {
         db = FirebaseFirestore.getInstance();
-        values.clear();
+        messages.clear();
         db.collection("Posts")
                 //.orderBy("Posts", Query.Direction.DESCENDING)
 
@@ -180,9 +200,9 @@ public class Reading extends AppCompatActivity {
                                 System.out.println("2");
                                 Message = value.getData().toString();
                                 cleanUp();
-                                values.add(Message);
+                                messages.add(Message);
                             }
-                            System.out.println(values);
+                            System.out.println(messages);
 
                             TextView welcome =findViewById(R.id.welcome);
                             welcome.setText("Welcome "+user+"!");
@@ -191,19 +211,19 @@ public class Reading extends AppCompatActivity {
                             profileClick.setText(user);
 
                             TextView textView = findViewById(R.id.textView2);
-                            textView.setText(values.get(0));
+                            textView.setText(messages.get(0));
 
                             TextView textView1 = findViewById(R.id.textView3);
-                            textView1.setText(values.get(1));
+                            textView1.setText(messages.get(1));
 
                             TextView textView2 = findViewById(R.id.textView4);
-                            textView2.setText(values.get(2));
+                            textView2.setText(messages.get(2));
 
                             TextView textView3 = findViewById(R.id.textView5);
-                            textView3.setText(values.get(3));
+                            textView3.setText(messages.get(3));
 
-                            TextView textView4 = findViewById(R.id.textView6);
-                            textView4.setText(values.get(4));
+                           // TextView textView4 = findViewById(R.id.textView6);
+                            //textView4.setText(messages.get(4));
                         }
                         else{
                             Log.w("tag", "Error getting Posts.",task.getException()) ;
@@ -221,28 +241,82 @@ public class Reading extends AppCompatActivity {
         profileClick.setText(user);
         TextView welcome =findViewById(R.id.welcome);
         welcome.setText("Welcome "+user+"!");
-        if(values.size()>0) {
+
+        if(messages.size()>0) {
             TextView textView = findViewById(R.id.textView2);
-            textView.setText(values.get(0));
+            textView.setText(messages.get(0));
+            Button button1 = findViewById(R.id.button2);
+            button1.setText(authors.get(0).substring(0,2));
+
         }
-        if(values.size()>1) {
+        if(messages.size()>1) {
             TextView textView1 = findViewById(R.id.textView3);
-            textView1.setText(values.get(1));
+            textView1.setText(messages.get(1));
+            Button button2 = findViewById(R.id.button4);
+            button2.setText(authors.get(1).substring(0,2));
         }
-        if(values.size()>2) {
+        if(messages.size()>2) {
             TextView textView2 = findViewById(R.id.textView4);
-            textView2.setText(values.get(2));
+            textView2.setText(messages.get(2));
+            Button button3 = findViewById(R.id.button5);
+            button3.setText(authors.get(2).substring(0,2));
         }
-        if(values.size()>3) {
+        if(messages.size()>3) {
             TextView textView3 = findViewById(R.id.textView5);
-            textView3.setText(values.get(3));
+            textView3.setText(messages.get(3));
+            Button button4 = findViewById(R.id.button6);
+            button4.setText(authors.get(3).substring(0,2));
         }
-        if(values.size()>4) {
+        /*if(messages.size()>4) {
             TextView textView4 = findViewById(R.id.textView6);
-            textView4.setText(values.get(4));
-        }
+            textView4.setText(messages.get(4));
+            Button button5 = findViewById(R.id.button7);
+            button5.setText(authors.get(4).substring(0,2));
+        } */
 
     }
+
+    public void onClickAuthor1(View view){
+        Intent intent = new Intent(this,Profile.class);
+        Button button = findViewById(R.id.button2);
+        authorName = authors.get(0);
+
+        intent.putExtra(userName,authorName);
+
+
+        startActivity(intent);
+    }
+    public void onClickAuthor2(View view){
+        Intent intent = new Intent(this,Profile.class);
+        Button button = findViewById(R.id.button4);
+        authorName = authors.get(1);
+
+        intent.putExtra(userName,authorName);
+
+
+        startActivity(intent);
+    }
+    public void onClickAuthor3(View view){
+        Intent intent = new Intent(this,Profile.class);
+        Button button = findViewById(R.id.button5);
+        authorName = authors.get(2);
+
+        intent.putExtra(userName,authorName);
+
+
+        startActivity(intent);
+    }
+    public void onClickAuthor4(View view){
+        Intent intent = new Intent(this,Profile.class);
+        Button button = findViewById(R.id.button6);
+        authorName = authors.get(3);
+
+        intent.putExtra(userName,authorName);
+
+
+        startActivity(intent);
+    }
+
 
     public void cleanUp(){
         String redo = "";

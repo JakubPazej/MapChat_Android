@@ -12,6 +12,8 @@ import android.location.Location;
 
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -48,6 +50,8 @@ public class Post extends AppCompatActivity {
 
     FusedLocationProviderClient fusedLocationProviderClient;
     double lat,lon;
+    TextView textView;
+    EditText editText;
 
 
 
@@ -70,9 +74,39 @@ public class Post extends AppCompatActivity {
 
         }
 
+        editText = (EditText) findViewById(R.id.Message);
+
+        textView = (TextView) findViewById(R.id.textView7);
+        editText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                int length = editText.length();
+                length = 86-length;
+                String convert = String.valueOf(length);
+                textView.setText(convert);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+               /* if(s.length()/140 == 0){
+                    textView.setText("86");
+                }else{
+                    textView.setText("86/"+String.valueOf((s.length()/140)+1));
+                }*/
+            }
+        });
 
 
-       // System.out.println(loc);
+
+
+        // System.out.println(loc);
 
 
     }
@@ -160,6 +194,7 @@ public class Post extends AppCompatActivity {
         //System.out.println(longitude);
        // FirebaseDatabase.getInstance().getReference().child("Users").child(user).child(tst).setValue(postMessage);
         FirebaseDatabase.getInstance().getReference().child("Location").child(tst).setValue(lat+"!"+lon+"!"+user+"!"+postMessage);
+        FirebaseDatabase.getInstance().getReference().child("Users").child(user).child(tst).setValue(postMessage);
 
 
         Intent intent = new Intent(this,Reading.class);
