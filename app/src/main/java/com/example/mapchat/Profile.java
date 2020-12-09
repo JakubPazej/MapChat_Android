@@ -56,17 +56,8 @@ public class Profile extends AppCompatActivity {
 
     public static String user;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    String user ;//= FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-=======
     //String user ;
     String userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
->>>>>>> Stashed changes
-=======
-    //String user ;
-    String userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
->>>>>>> Stashed changes
     FirebaseStorage storage = FirebaseStorage.getInstance();;
     private StorageReference mStorageRef;
     private Uri filePath;
@@ -83,18 +74,9 @@ public class Profile extends AppCompatActivity {
         mStorageRef = storage.getReferenceFromUrl("gs://mapchat-d7f34.appspot.com");
         user = getIntent().getStringExtra(Reading.userName);
         dataBase = FirebaseDatabase.getInstance();
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
         Button button = findViewById(R.id.button3);
 
 
->>>>>>> Stashed changes
-=======
-        Button button = findViewById(R.id.button3);
-
-
->>>>>>> Stashed changes
 
 
         try {
@@ -148,7 +130,6 @@ public class Profile extends AppCompatActivity {
 
 
 
-<<<<<<< Updated upstream
     }
 
     public void newGuy(){
@@ -251,110 +232,6 @@ public class Profile extends AppCompatActivity {
         }
     }
 
-=======
-    }
-
-    public void newGuy(){
-        String ts=Long.toString(System.currentTimeMillis());
-        String tst = "";
-        for(int i =0; i<13;i++) {
-            tst+=(9- (Character.getNumericValue(ts.charAt(i))));
-
-        }
-        myRef.child(user).child(tst).setValue("Im new, Hello!");
-        read();
-    }
-
-    public void read(){
-        myRef = dataBase.getReference().child("Users").child(user);
-        myRef.addValueEventListener(new ValueEventListener() {
-
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //if (dataSnapshot != null) {
-                //if(dataSnapshot.exists)
-                userMessages.clear();
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                //Map<String, String> dataset = new HashMap<String, String>();
-
-                Map<Integer, String> mapS = (Map<Integer, String>) dataSnapshot.getValue();
-
-                TreeMap<Integer, String> map = new TreeMap<>();
-                try {
-                    map.putAll(mapS);
-                }
-                catch(NullPointerException nully){
-                }
-                if (map.size() > 5) {
-                    int j = 0;
-                    for (String i : map.values()) {
-                        Log.d(TAG, "Value is: " + i);
-                        userMessages.add(i);
-                        //getInfo(i,true);
-                        j++;
-                        if (j == 5) {
-                            break;
-                        }
-                    }
-                } else {
-                    int j = 0;
-                    for (String i : map.values()) {
-                        //while(j<map.size()) {
-                        Log.d(TAG, "Value is: " + i);
-                        userMessages.add(i);
-                        j++;
-                        if (j == map.size()) {
-                            break;
-                        }
-                    }
-                }
-                updateData();
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-
-        });
-
-
-    }
-
-    public void updateData(){
-        if(userMessages.size()>0) {
-            TextView textView = findViewById(R.id.Message1);
-            textView.setText(userMessages.get(0));
-
-
-        }
-        if(userMessages.size()>1) {
-            TextView textView1 = findViewById(R.id.Message2);
-            textView1.setText(userMessages.get(1));
-
-        }
-        if(userMessages.size()>2) {
-            TextView textView2 = findViewById(R.id.Message3);
-            textView2.setText(userMessages.get(2));
-
-        }
-        if(userMessages.size()>3) {
-            TextView textView3 = findViewById(R.id.Message4);
-            textView3.setText(userMessages.get(3));
-
-        }
-        if(userMessages.size()>4) {
-            TextView textView4 = findViewById(R.id.Message5);
-            textView4.setText(userMessages.get(4));
-
-        }
-    }
-
->>>>>>> Stashed changes
     public void uploadProfo(View view) {
        // if()//To set profile Image
 
@@ -433,3 +310,7 @@ public class Profile extends AppCompatActivity {
     }
 
 }
+
+
+
+

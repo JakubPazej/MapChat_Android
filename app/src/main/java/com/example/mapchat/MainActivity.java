@@ -79,11 +79,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
         final ImageView background = findViewById(R.id.background);
 
         final Bitmap[] bitmap1 = new Bitmap[1];
@@ -106,10 +101,6 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Failure Byte");
             }
         });
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
         }
 

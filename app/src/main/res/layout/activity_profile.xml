@@ -51,25 +51,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="296dp"
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-=======
-=======
->>>>>>> Stashed changes
         android:background="#C8C6C6"
         android:maxWidth="320dp"
         android:maxHeight="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
     <TextView
         android:id="@+id/Message2"
@@ -77,19 +64,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         app:layout_constraintEnd_toEndOf="parent"
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        app:layout_constraintHorizontal_bias="0.498"
-=======
         android:background="#C8C6C6"
         android:maxWidth="320dp"
         android:maxHeight="60dp"
->>>>>>> Stashed changes
-=======
-        android:background="#C8C6C6"
-        android:maxWidth="320dp"
-        android:maxHeight="60dp"
->>>>>>> Stashed changes
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Message1" />
 
@@ -99,19 +76,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
         app:layout_constraintEnd_toEndOf="parent"
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        app:layout_constraintHorizontal_bias="0.501"
-=======
         android:background="#C8C6C6"
         android:maxWidth="320dp"
         android:maxHeight="60dp"
->>>>>>> Stashed changes
-=======
-        android:background="#C8C6C6"
-        android:maxWidth="320dp"
-        android:maxHeight="60dp"
->>>>>>> Stashed changes
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Message2" />
 
@@ -121,19 +88,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="76dp"
         app:layout_constraintEnd_toEndOf="parent"
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        app:layout_constraintHorizontal_bias="0.501"
-=======
         android:background="#C8C6C6"
         android:maxWidth="320dp"
         android:maxHeight="60dp"
->>>>>>> Stashed changes
-=======
-        android:background="#C8C6C6"
-        android:maxWidth="320dp"
-        android:maxHeight="60dp"
->>>>>>> Stashed changes
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Message3" />
 
@@ -143,25 +100,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="76dp"
         app:layout_constraintEnd_toEndOf="parent"
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Message4" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-=======
-=======
->>>>>>> Stashed changes
         android:background="#C8C6C6"
         android:maxWidth="320dp"
         android:maxHeight="60dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Message4" />
 
-<<<<<<< Updated upstream
 </androidx.constraintlayout.widget.ConstraintLayout>
->>>>>>> Stashed changes
-=======
-</androidx.constraintlayout.widget.ConstraintLayout>
->>>>>>> Stashed changes
