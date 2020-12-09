@@ -276,6 +276,7 @@ public class Reading extends AppCompatActivity {
 
     }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
     public void onClickAuthor1(View view){
         Intent intent = new Intent(this,Profile.class);
@@ -283,11 +284,14 @@ public class Reading extends AppCompatActivity {
         authorName = authors.get(0);
 
 =======
+=======
+>>>>>>> Stashed changes
 
     public void onClickAuthor1(View view){
         Intent intent = new Intent(this,otherProfile.class);
         Button button = findViewById(R.id.button2);
         authorName = authors.get(0);
+<<<<<<< Updated upstream
 
 >>>>>>> Stashed changes
         intent.putExtra(userName,authorName);
@@ -346,11 +350,14 @@ public class Reading extends AppCompatActivity {
         Intent intent = new Intent(this,Profile.class);
         Button button = findViewById(R.id.button4);
         authorName = button.getText().toString();
+=======
+>>>>>>> Stashed changes
 
         intent.putExtra(userName,authorName);
 
 
         startActivity(intent);
+<<<<<<< Updated upstream
     }
     public void onClickAuthor3(View view){
         Intent intent = new Intent(this,Profile.class);
@@ -385,6 +392,20 @@ public class Reading extends AppCompatActivity {
 >>>>>>> Stashed changes
     }
     public void onClickAuthor3(View view){
+=======
+    }
+    public void onClickAuthor2(View view){
+        Intent intent = new Intent(this,otherProfile.class);
+        Button button = findViewById(R.id.button4);
+        authorName = authors.get(1);
+
+        intent.putExtra(userName,authorName);
+
+
+        startActivity(intent);
+    }
+    public void onClickAuthor3(View view){
+>>>>>>> Stashed changes
         Intent intent = new Intent(this,otherProfile.class);
         Button button = findViewById(R.id.button5);
         authorName = authors.get(2);
