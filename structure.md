@@ -7,3 +7,6 @@ From here, you can go to either the Post page, where you can post a message and 
 or you can go to the Map Fragment, where you can see where the posts are coming from.
 From the reading page, you can also click your profile at the top to access your Profile page,
 or click a name next to a post to go to their UserProfile page.
+
+
+![Activity Diagram](https://github.com/MiestnyLovecZien/MapChat_Android/blob/master/Activity%20Diagram.PNG)
