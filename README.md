@@ -25,3 +25,8 @@ We used firebase to make the app, the firebase project can be found here
 https://console.firebase.google.com/u/0/project/mapchat-d7f34/overview
 
 ## More Information
+
+### [Design](https://github.com/MiestnyLovecZien/MapChat_Android/blob/master/design.md)
+
+### [Structure](https://github.com/MiestnyLovecZien/MapChat_Android/blob/master/structure.md)
+
