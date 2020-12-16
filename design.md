@@ -1,4 +1,4 @@
-#Technical Design Of MapChat
+# Technical Design Of MapChat
 
 We used Firebase Authentification to allow users to sign in and make profiles.
 Using Realtime Databases, we were able to post messages, store user messages and locations, and display them in textviews.
