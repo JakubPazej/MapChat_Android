@@ -1,4 +1,4 @@
-#Navigation Structure of MapChat
+# Navigation Structure of MapChat
 
 When you first open the map, you are met with the MainActivity page, where you can sign in. 
 Once you click sign in, the firebase authentification fragment is started.
