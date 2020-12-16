@@ -1,12 +1,12 @@
 # Technical Design Of MapChat
 
-We used Firebase Authentification to allow users to sign in and make profiles.
-Using Realtime Databases, we were able to post messages, store user messages and locations, and display them in textviews.
-Using Firebase Storage, we stored user profile pictures and were able to display them on their respective user profiles.
-We utilise the users gallery to allow them to pick out a profile picture.
-We asked users to allow us permission to get their location so we could use the map function.
-We used a Google Maps Activity and Fragment to allow users to look at the map and move around on it.
-For out own benefit, we utilised Firebase Crashyltics and connected it to Jira, giving us nice info on all user crashes.
+1. We used Firebase Authentification to allow users to sign in and make profiles.
+2. Using Realtime Databases, we were able to post messages, store user messages and locations, and display them in textviews.
+3. Using Firebase Storage, we stored user profile pictures and were able to display them on their respective user profiles.
+4. We utilise the users gallery to allow them to pick out a profile picture.
+5. We asked users to allow us permission to get their location so we could use the map function.
+6. We used a Google Maps Activity and Fragment to allow users to look at the map and move around on it.
+7. For out own benefit, we utilised Firebase Crashyltics and connected it to Jira, giving us nice info on all user crashes.
 
 If we were to start the project from scratch again, we would change from the default authentification system to one that we could customize better.
 The default looks bvery out of place in our colourful app, and by the time we looked into changing it, too much relied on it.
